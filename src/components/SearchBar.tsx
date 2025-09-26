@@ -21,7 +21,7 @@ export default function SearchBar() {
     setSearchTerm(value);
     debouncedSearch(value);
   }, [debouncedSearch]);
-
+  
   return (
     <div className="w-full max-w-xl mx-auto mb-8">
       <div className="relative">
