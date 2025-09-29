@@ -5,14 +5,10 @@ import { getMovieById } from '@/lib/tmdb';
 import { TMDB_IMAGE_BASE_URL } from '@/lib/tmdb';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
-type PageProps<Route extends string = "/movie/[id]"> = {
-  params: { id: string } | Promise<{ id: string }>;
-  searchParams: Record<string, string | string[] | undefined> | Promise<Record<string, string | string[] | undefined>>;
-};
 
-export default async function MoviePage({ params, searchParams }: PageProps<"/movie/[id]">) {
-  const resolvedParams = await params;
-  const movie = await getMovieById(resolvedParams.id);
+export default async function MoviePage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const { id } = await params;
+  const movie = await getMovieById(id);
 
   return (
     <div className="container mx-auto px-4 py-8">
