@@ -1,17 +1,18 @@
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { getMovieById } from '@/lib/tmdb';
 import { TMDB_IMAGE_BASE_URL } from '@/lib/tmdb';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
-interface MoviePageProps {
-  params: {
-    id: string;
-  };
-}
+type PageProps<Route extends string = "/movie/[id]"> = {
+  params: { id: string } | Promise<{ id: string }>;
+  searchParams: Record<string, string | string[] | undefined> | Promise<Record<string, string | string[] | undefined>>;
+};
 
-export default async function MoviePage({ params }: MoviePageProps) {
-  const movie = await getMovieById(params.id);
+export default async function MoviePage({ params, searchParams }: PageProps<"/movie/[id]">) {
+  const resolvedParams = await params;
+  const movie = await getMovieById(resolvedParams.id);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -69,4 +70,4 @@ export default async function MoviePage({ params }: MoviePageProps) {
       </div>
     </div>
   );
-} 
+}
