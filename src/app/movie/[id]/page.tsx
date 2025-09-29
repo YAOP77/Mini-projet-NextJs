@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getMovieById } from '@/lib/tmdb';
 import { TMDB_IMAGE_BASE_URL } from '@/lib/tmdb';
-import LoadingSpinner from '@/components/LoadingSpinner';
+// import LoadingSpinner from '@/components/LoadingSpinner';
 
 
 export default async function MoviePage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
